@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer - Focus & Productivity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header-ad {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .timer-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 400px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #4834d4, #686de0);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #00d2d3, #54a0ff);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .time-presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .preset-btn {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .preset-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .sidebar-ads {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 200px;
+        }
+
+        .ad-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-ad {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-text {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+            transition: width 1s linear;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-ads {
+                position: static;
+                transform: none;
+                max-width: none;
+                margin: 20px;
+            }
+
+            .timer-card {
+                min-width: auto;
+                padding: 20px;
+            }
+
+            .timer-display {
+                font-size: 2.5rem;
+            }
+
+            .timer-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Ads -->
+    <div class="header-ad">
+        <script type='text/javascript' src='//pl27557225.revenuecpmgate.com/c6/0d/ea/c60dea656cb200dc922aa57165fb4b23.js'></script>
+        <script type='text/javascript' src='//pl27557225.revenuecpmgate.com/c6/0d/ea/c60dea656cb200dc922aa57165fb4b23.js'></script>
+    </div>
+
+    <!-- Main Timer Container -->
+    <div class="main-container">
+        <div class="timer-card">
+            <h1>Focus Timer</h1>
+            
+            <div class="timer-display" id="timerDisplay">25:00</div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            
+            <div class="status-text" id="statusText">Ready to start</div>
+            
+            <div class="time-presets">
+                <button class="preset-btn" onclick="setTimer(5)">5min</button>
+                <button class="preset-btn" onclick="setTimer(10)">10min</button>
+                <button class="preset-btn" onclick="setTimer(15)">15min</button>
+                <button class="preset-btn" onclick="setTimer(25)">25min</button>
+                <button class="preset-btn" onclick="setTimer(30)">30min</button>
+                <button class="preset-btn" onclick="setTimer(45)">45min</button>
+                <button class="preset-btn" onclick="setTimer(60)">1hr</button>
+            </div>
+            
+            <div class="timer-controls">
+                <button class="btn btn-primary" id="startPauseBtn" onclick="toggleTimer()">START</button>
+                <button class="btn btn-secondary" onclick="resetTimer()">RESET</button>
+                <button class="btn btn-success" onclick="addMinute()">+1 MIN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Ads -->
+    <div class="sidebar-ads">
+        <div class="ad-container">
+            <script type='text/javascript' src='//pl27584230.revenuecpmgate.com/29/57/0c/29570c23825372b8dd58de7d3890b35e.js'></script>
+            <script type='text/javascript' src='//pl27584230.revenuecpmgate.com/29/57/0c/29570c23825372b8dd58de7d3890b35e.js'></script>
+        </div>
+        
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '90fa900c6e28971f89dec0c7ff168294',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/90fa900c6e28971f89dec0c7ff168294/invoke.js"></script>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '90fa900c6e28971f89dec0c7ff168294',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/90fa900c6e28971f89dec0c7ff168294/invoke.js"></script>
+        </div>
+        
+        <div class="ad-container">
+            <script type='text/javascript' src='//pl27557225.revenuecpmgate.com/c6/0d/ea/c60dea656cb200dc922aa57165fb4b23.js'></script>
+            <script type='text/javascript' src='//pl27557225.revenuecpmgate.com/c6/0d/ea/c60dea656cb200dc922aa57165fb4b23.js'></script>
+        </div>
+        
+        <div class="ad-container">
+            <script type='text/javascript' src='//pl27584230.revenuecpmgate.com/29/57/0c/29570c23825372b8dd58de7d3890b35e.js'></script>
+            <script type='text/javascript' src='//pl27584230.revenuecpmgate.com/29/57/0c/29570c23825372b8dd58de7d3890b35e.js'></script>
+        </div>
+    </div>
+
+    <!-- Footer Ads -->
+    <div class="footer-ad">
+        <script async="async" data-cfasync="false" src="//pl27584240.revenuecpmgate.com/a6da14ac243a96df9807abc57df14dda/invoke.js"></script>
+        <div id="container-a6da14ac243a96df9807abc57df14dda"></div>
+        <script async="async" data-cfasync="false" src="//pl27584240.revenuecpmgate.com/a6da14ac243a96df9807abc57df14dda/invoke.js"></script>
+        <div id="container-a6da14ac243a96df9807abc57df14dda-2"></div>
+    </div>
+
+    <script>
+        let timerInterval;
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+        let totalTime = 25 * 60;
+        let isRunning = false;
+        let isPaused = false;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startPauseBtn = document.getElementById('startPauseBtn');
+        const statusText = document.getElementById('statusText');
+        const progressFill = document.getElementById('progressFill');
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateDisplay() {
+            timerDisplay.textContent = formatTime(timeLeft);
+            const progressPercent = ((totalTime - timeLeft) / totalTime) * 100;
+            progressFill.style.width = progressPercent + '%';
+        }
+
+        function setTimer(minutes) {
+            if (!isRunning) {
+                timeLeft = minutes * 60;
+                totalTime = minutes * 60;
+                updateDisplay();
+                statusText.textContent = `${minutes} minute timer ready`;
+                resetTimer();
+            }
+        }
+
+        function toggleTimer() {
+            if (!isRunning && !isPaused) {
+                // Start timer
+                startTimer();
+            } else if (isRunning) {
+                // Pause timer
+                pauseTimer();
+            } else if (isPaused) {
+                // Resume timer
+                resumeTimer();
+            }
+        }
+
+        function startTimer() {
+            isRunning = true;
+            isPaused = false;
+            startPauseBtn.textContent = 'PAUSE';
+            statusText.textContent = 'Timer running...';
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    startPauseBtn.textContent = 'START';
+                    statusText.textContent = 'Time\'s up! 🎉';
+                    timerDisplay.classList.add('pulse');
+                    
+                    // Play sound or show notification
+                    if ('Notification' in window) {
+                        Notification.requestPermission().then(permission => {
+                            if (permission === 'granted') {
+                                new Notification('Timer Complete!', {
+                                    body: 'Your focus session is finished!',
+                                    icon: '⏰'
+                                });
+                            }
+                        });
+                    }
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            isPaused = true;
+            startPauseBtn.textContent = 'RESUME';
+            statusText.textContent = 'Timer paused';
+        }
+
+        function resumeTimer() {
+            startTimer();
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            isPaused = false;
+            startPauseBtn.textContent = 'START';
+            statusText.textContent = 'Ready to start';
+            timerDisplay.classList.remove('pulse');
+            updateDisplay();
+        }
+
+        function addMinute() {
+            timeLeft += 60;
+            totalTime += 60;
+            updateDisplay();
+            statusText.textContent = 'Added 1 minute';
+        }
+
+        // Initialize display
+        updateDisplay();
+
+        // Request notification permission on load
+        if ('Notification' in window) {
+            Notification.requestPermission();
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                toggleTimer();
+            } else if (e.code === 'KeyR') {
+                e.preventDefault();
+                resetTimer();
+            }
+        });
+    </script>
+</body>
+</html>
